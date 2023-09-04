@@ -6,31 +6,34 @@ from matplotlib import pyplot as plt
 def random_walk(start, volatility, length) -> list:
     volatility_neg = -1 * volatility
     walk = [start]
-    for _ in range(1, length):
-        walk.append(max(walk[-1] + random.uniform(volatility_neg, volatility), 0))
-
+    walk.extend(
+        max(walk[-1] + random.uniform(volatility_neg, volatility), 0)
+        for _ in range(1, length)
+    )
     return walk
 
 
 def relative_walk(start, volatility, length) -> list:
     factor = 1 + volatility
     walk = [start]
-    for _ in range(1, length):
-        walk.append(max(walk[-1] * random.uniform(1/factor, factor), 0))
-
+    walk.extend(
+        max(walk[-1] * random.uniform(1 / factor, factor), 0)
+        for _ in range(1, length)
+    )
     return walk
 
 
 def normal_walk(start, volatility, length) -> list:
     walk = [start]
-    for _ in range(1, length):
-        walk.append(max(walk[-1] + random.gauss(0, volatility), 0))
-
+    walk.extend(
+        max(walk[-1] + random.gauss(0, volatility), 0)
+        for _ in range(1, length)
+    )
     return walk
 
 
 def plot_walk(start, volatility, length, use_walk):
-    time = [i for i in range(length)]
+    time = list(range(length))
     walk1 = use_walk(start, volatility, length)
     walk2 = use_walk(start, volatility, length)
     walk3 = use_walk(start, volatility, length)
@@ -43,7 +46,7 @@ def plot_walk(start, volatility, length, use_walk):
 
 
 def plot_norm_rand(start, volatility, length):
-    time = [i for i in range(length)]
+    time = list(range(length))
     walk1 = random_walk(start, volatility, length)
     walk2 = random_walk(start, volatility, length)
     walk3 = normal_walk(start, volatility, length)
