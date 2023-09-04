@@ -36,11 +36,11 @@ class Agent(object):
     @staticmethod
     def adjust_list(list_to_adjust, length):
         diff = max(length - len(list_to_adjust), 0)
-        if diff == 0:
-            ret = list_to_adjust[-HIST_LENGTH:]
-        else:
-            ret = [-1] * diff + list_to_adjust
-        return ret
+        return (
+            list_to_adjust[-HIST_LENGTH:]
+            if diff == 0
+            else [-1] * diff + list_to_adjust
+        )
 
     def get_state(self, game):
         value = max(game.total_value, 0)
@@ -83,13 +83,11 @@ class Agent(object):
         final_move = [0, 0]
         if random.randint(0, 200) < self.epsilon:
             move = random.randint(0, 1)  # 0 or 1
-            final_move[move] = 1
         else:
             state0 = torch.tensor(state, dtype=torch.float)
             prediction = self.model(state0)
             move = torch.argmax(prediction).item()
-            final_move[move] = 1
-
+        final_move[move] = 1
         return final_move
 
 

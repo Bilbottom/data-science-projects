@@ -201,9 +201,11 @@ class WalkGame(object):
             )
 
         # box1 text
-        iter_text = font.render("Iteration: " + str(self.iteration), True, BLACK)
-        bal_text = font.render("Balance: " + str(round(self.balance, 2)), True, BLACK)
-        asset_text = font.render("Asset: " + str(round(self.asset_volume, 2)), True, BLACK)
+        iter_text = font.render(f"Iteration: {str(self.iteration)}", True, BLACK)
+        bal_text = font.render(f"Balance: {str(round(self.balance, 2))}", True, BLACK)
+        asset_text = font.render(
+            f"Asset: {str(round(self.asset_volume, 2))}", True, BLACK
+        )
         value_text = self._font_render('Total Value', self.total_value)
 
         box1_x, box1_y = self.frame_info.box1[:2]
@@ -214,7 +216,9 @@ class WalkGame(object):
         self.display.blit(value_text, [box1_x + 5, box1_y + 80])
 
         # box2 text
-        price_text = font.render("Current Price: " + str(round(self.current_price, 2)), True, BLACK)
+        price_text = font.render(
+            f"Current Price: {str(round(self.current_price, 2))}", True, BLACK
+        )
         # start_text = self._font_render('Start Price', self.starting_price)
         txn_p_text = self._font_render('Last Action Price', self.last_transaction_price)
         txn_t_text = self._font_render('Last Action', self.last_transaction)
@@ -233,7 +237,7 @@ class WalkGame(object):
 
     @staticmethod
     def _font_render(key_text, key):
-        return font.render(key_text + ': ' + str(key), True, BLACK)
+        return font.render(f'{key_text}: {str(key)}', True, BLACK)
 
     def _point_map(self, xpoint, ypoint):
         """

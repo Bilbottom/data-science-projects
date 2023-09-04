@@ -167,10 +167,12 @@ class WalkGame(object):
         pygame.draw.rect(self.display, RED, pygame.Rect(*self.frame_info.box2), 2)
         pygame.draw.rect(self.display, RED, pygame.Rect(*self.frame_info.box3), 2)
 
-        iter_text = font.render("Iteration: " + str(self.price_iteration), True, BLACK)
-        price_text = font.render("Current Price: " + str(round(self.current_price, 2)), True, BLACK)
-        bal_text = font.render("Balance: " + str(self.balance), True, BLACK)
-        asset_text = font.render("Asset: " + str(self.asset_volume), True, BLACK)
+        iter_text = font.render(f"Iteration: {str(self.price_iteration)}", True, BLACK)
+        price_text = font.render(
+            f"Current Price: {str(round(self.current_price, 2))}", True, BLACK
+        )
+        bal_text = font.render(f"Balance: {str(self.balance)}", True, BLACK)
+        asset_text = font.render(f"Asset: {str(self.asset_volume)}", True, BLACK)
         self.display.blit(iter_text, [0, 0])
         self.display.blit(price_text, [0, 25])
         self.display.blit(bal_text, [0, 50])
